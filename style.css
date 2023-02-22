@@ -1,0 +1,114 @@
+body{
+    margin: 0px auto 50px auto;
+    text-align: center;
+    background-color: rgb(115, 197, 241);
+  }
+
+  form {
+    margin-top: 30px;
+    padding-bottom: 10px;
+  }
+
+  #button {
+    width: 140px;
+    height: 46px;
+    border-radius: 4px;
+    background-color: #27b7c1;
+    font-family: Source Sans Pro;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 0.94;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+
+  .container2 {
+    max-width: 900px;
+    margin: auto;
+  
+  }
+  
+  h1 {
+    padding-top: 1rem;
+    font-family: Montserrat;
+    font-size: 64px;
+    font-weight: 300;
+    letter-spacing: 1.1px;
+    text-align: center;
+    color: #ffffff;
+    margin: auto;
+  }
+  
+  h3 {
+    font-family: Work Sans;
+    font-weight: 500;
+    line-height: 1.29;
+    color: #27c19e;
+    padding-left: 5px;
+  }
+
+  #films{ 
+    display: flex;
+    justify-content: space-around;
+    min-height: 250px;
+    /* width: 100vw; */
+  }
+  .film {
+    width: 200px;
+    padding: 20px;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+    background-color: pink;
+}
+
+.hidden {
+  display: none;
+}
+
+/*this is where the img should be */
+/* films.img { */
+    /* width:  100%; */
+    /* height:  auto; */
+    /* display:  block; */
+    /* margin:  auto; */
+/* } */ 
+
+
+
+
+/*from here can be deleted not needed*/
+/*from here testing from here*/
+
+#movieInfo {
+	width: 65%;
+	margin: 32px auto;
+}
+
+/* #movieInfo:after {
+	content: "";
+	display: table;
+	clear: both;
+} */
+
+/* #moviePoster,
+#movieText {
+	width: 50%;
+	float: left;
+}
+
+img#moviePoster {
+	width: 100%;
+	height: auto;
+	display: block;
+	margin: auto;
+} */
+
+@media (max-width: 768px) {
+  #films {
+    display: block;
+    width: auto;
+  }
+}
