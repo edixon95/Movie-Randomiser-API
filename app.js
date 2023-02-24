@@ -10,18 +10,24 @@ const handleOnSubmit = (event) => {
     const searchInput = document.getElementById("searchbox");
     
     const movieName = searchInput.value.trim();
+
+    const movieInfoContainer = document.querySelector('#infoContainer')
+    const movieInfoContainerTop = document.querySelector('#infoContainerTop')
     
     if (!movieName) {
         // handleError();
     } else {
         showMovieInfo(movieName);
+        movieInfoContainer.innerHTML = ""
+        movieInfoContainerTop.innerHTML = ""
     }
     };
 
 const findMovieInformation = async (movieName) => {
+    const randomPage = Math.ceil(Math.random()*5)
 
     try {
-        const url = `${website}?api_key=${APIKEY}&language=en-US&include_adult=false&page=1&query=${movieName}`
+        const url = `${website}?api_key=${APIKEY}&language=en-US&include_adult=false&page=${randomPage}&query=${movieName}`
     
         const response = await fetch(url);
     
@@ -30,7 +36,7 @@ const findMovieInformation = async (movieName) => {
         } else {
         const data = await response.json();
         // console.log(url)
-        return data.results;
+        return data.results.splice(0, 5);
         }
     } catch (e) {
         console.error(e.message);
@@ -44,16 +50,19 @@ const showMovieInfo = async (movieName) => {
 
     const movieContainer = document.querySelector('#films')
     const index = 1
-
-    movieContainer.innerHTML = resultsArray.map( movie => {
+    
+    movieContainer.innerHTML = resultsArray.filter((movie) => {return movie.title}).map( movie => {
         return`
-    <div class="card-body">
-        <h4 class="card-title h5 h4-sm">${movie.title}</h4>
-        <p class="card-text">${movie.overview}</p>
-    </div>
-    <div class="film card" id="${'film'+index}">
-        <img src="${imageMaker}${movie.poster_path}">
-        <button class="movieButton" style="margin-top: 1rem;" data-movieid="${movie.id}">${movie.title}</button>
+    <div class="film card centerthis" id="${'film'+index}">
+        <img src="${movie.poster_path?`${imageMaker}${movie.poster_path}`: "https://via.placeholder.com/185x278?text=No+Image+Found"}">
+        <button
+        class="movieButton" 
+        style="margin-top: 1rem;" 
+        data-movietitle="${movie.title}"
+        data-movieoverview="${movie.overview}"
+        >
+        ${movie.title}
+        </button>
     </div>
     `}).join('\n')
 
@@ -70,7 +79,6 @@ const makeButtons = () => {
         )
 }
 
-
 const hideStuff = () => {
 
     const hidden = document.querySelector('.filmButton')
@@ -78,14 +86,24 @@ const hideStuff = () => {
 
 }
 
-const informationPresent = (event) => {
-    const movieid = event.target
-    // const movieInfoContainer = document.querySelector('.movieShow')
-    console.log(movieid)
-    
-    // movieInfoContainer.classList.remove('hidden')
+const movieInfoComponent = (movie) => {
+    return `
+    <div class="card-body">
+    <h4 class=card-title h5 h4-sm">${movie.title}</h4>
+    <p class=card-text">${movie.overview}</p>
+    </div>
+    `
+}
 
-    hideStuff()
+const informationPresent = (event) => {
+    const movieInfoContainer = document.querySelector('#infoContainer')
+    const movieInfoContainerTop = document.querySelector('#infoContainerTop')
+    
+    const title = event.target.getAttribute("data-movietitle")
+    const overview = event.target.getAttribute("data-movieoverview")
+    
+    movieInfoContainer.innerHTML = movieInfoComponent({title, overview})
+    movieInfoContainerTop.innerHTML = movieInfoComponent({title, overview})
 }
 
 searchform.addEventListener("submit", handleOnSubmit);
