@@ -39,14 +39,15 @@ body{
   background-color: rgba(114, 0, 19, 0.432);
 }
 
+.hidden {
+  display: none;
+}
+
 #films {
   display: flex;
 }
 
 
-.hidden {
-  display: none;
-}
 
 
 
@@ -148,7 +149,11 @@ p {
 }
 
 #infoContainer {
-  display: block;
+  margin: auto;
+}
+
+.backButton {
+  border: 1px solid #797878;
 }
 
 #infoContainer, #infoContainerTop {
@@ -167,12 +172,6 @@ p {
   #films {
     display: block;
     width: auto;
-  }
-  #infoContainer{
-    display: none;
-  }
-  #infoContainerTop{
-    display:block;
   }
   #logo {
     margin-top: 1rem;

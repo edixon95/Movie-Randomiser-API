@@ -49,11 +49,11 @@ const showMovieInfo = async (movieName) => {
 
 
     const movieContainer = document.querySelector('#films')
-    const index = 1
-    
+    let index = 1
+        // Render title cards
     movieContainer.innerHTML = resultsArray.filter((movie) => {return movie.title}).map( movie => {
         return`
-    <div class="film card centerthis" id="${'film'+index}">
+    <div class="film card centerthis testclass" id="${'film'+index}">
         <img src="${movie.poster_path?`${imageMaker}${movie.poster_path}`: "https://via.placeholder.com/185x278?text=No+Image+Found"}">
         <button
         class="movieButton" 
@@ -65,62 +65,64 @@ const showMovieInfo = async (movieName) => {
         </button>
     </div>
     `}).join('\n')
-
     makeButtons()
 
 
 
 }
-
+        // More information buttons, back buttons are done much later. (line 121-125)
 const makeButtons = () => {
     const buttons = [...document.querySelectorAll('.movieButton')]
     buttons.map( 
         button => button.addEventListener("click",informationPresent)
         )
 }
-
+        // Hides/shows each card (any amount) and also toggles the "more information" window
 const hideStuff = () => {
+    const hidden = document.querySelectorAll('#film1');
+    for (let i = 0; i < hidden.length; i++) {
+        hidden[i].classList.toggle('hidden')
+    }
 
-    const hidden = document.querySelector('.filmButton')
-    hidden.classList.toggle('hidden')
+    const infoHide = document.querySelector('#infoContainer')
+    infoHide.classList.toggle('hidden')
 
 }
-
+        // Overview cards, must start as hidden (see line 115 - 116)
 const movieInfoComponent = (movie) => {
     return `
     <div class="card-body">
-    <h4 class=card-title h5 h4-sm">${movie.title}</h4>
+    <h4 class=card-title h5 h4-sm hidden">${movie.title}</h4>
     <p class=card-text">${movie.overview}</p>
+    <button
+    class="backButton">
+    Back
+    </button>
     </div>
     `
 }
-
+        // On click action 
 const informationPresent = (event) => {
     const movieInfoContainer = document.querySelector('#infoContainer')
     const movieInfoContainerTop = document.querySelector('#infoContainerTop')
     
     const title = event.target.getAttribute("data-movietitle")
     const overview = event.target.getAttribute("data-movieoverview")
-    
+    // ^ on event (being clicked), get attribute movietitle & movieoverview
+    // v Pass information to callback fn to render cards
     movieInfoContainer.innerHTML = movieInfoComponent({title, overview})
     movieInfoContainerTop.innerHTML = movieInfoComponent({title, overview})
+
+    hideStuff()
+        // Couldn't figure this one out, #infoContainer required two clicks to show if user does not remove hidden first (but only the first time)
+        // This is just a work around
+    const infoHide = document.querySelector('#infoContainer')
+    infoHide.classList.remove('hidden')
+        // The back buttons don't exist when cards are first rendered, so they are selected here instead. 
+    const buttons = [...document.querySelectorAll('.backButton')]
+    buttons.map( 
+        button => button.addEventListener("click", hideStuff)
+        )
 }
 
 searchform.addEventListener("submit", handleOnSubmit);
-
-
-    // // Image construction
-    // http://image.tmdb.org/t/p/ - File path
-    // w185/ - size
-    // pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg - .poster_path
-    
-    // see the following
-    // https://api.themoviedb.org/3/configuration?api_key=c4bc571471c2807e7f91b7f978e76c8f
-    
-    
-    // log (`Movie title: ${currentMovieInformation.original_title}`)
-    // log (`Release date: ${currentMovieInformation.release_date}`)
-    // log (`Genres: ${currentMovieInformation.genres[0].name}, ${currentMovieInformation.genres[1].name}, ${currentMovieInformation.genres[2].name}`)
-    // console.log(`IMDB: ${realWebsite}${currentMovieInformation.imdb_id}`)
-    // console.log(`${imageMaker}${currentMovieInformation.poster_path}`)
-    // console.log(`${currentMovieInformation.overview}`)
