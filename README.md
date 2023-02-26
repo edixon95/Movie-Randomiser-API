@@ -8,10 +8,12 @@ A small app to help find something to watch based on a keyword
 
 ### Desktop:
 
-![Desktop search] (/img/desktopsearch.jpg "After search")
-![Desktop info] (/img/desktopinfo.jpg "After info")
+![Desktop search](./img/desktopsearch.jpg "After search")
+
+![Desktop info](./img/desktopinfo.jpg "After info")
 
 ### Mobile:
 
-![Mobile search] (/img/mobilesearch.jpg "After search")
-![Moible info] (/img/mobileinfo.jpg "After info")
+![Mobile search](./img/mobilesearch.jpg "After search")
+
+![Moible info](./img/mobileinfo.jpg "After info")
